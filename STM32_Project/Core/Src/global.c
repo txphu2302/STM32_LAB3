@@ -5,4 +5,5 @@
  *      Author: Acer
  */
 
-
+#include "global.h"
+int status = 0;

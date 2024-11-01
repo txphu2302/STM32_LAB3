@@ -1,0 +1,5 @@
+traffic_light.c:10:6:OffLight	8	static
+traffic_light.c:20:6:RedGreen	8	static
+traffic_light.c:30:6:RedAmber	8	static
+traffic_light.c:41:6:GreenRed	8	static
+traffic_light.c:51:6:AmberRed	8	static
