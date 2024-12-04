@@ -9,32 +9,13 @@
 
 int sub_status = 0;
 
-void blinking_mode_01()
-{
-	if (timer2_flag == 1)
-	{
-		setTimer2(250);
-		switch(sub_status)
-		{
-			case 0:
-				display7SEG_2(0, 0);
-				display7SEG(0, 0);
-				sub_status = 1;
-				break;
-			case 1:
-				display7SEG_2(0, 0);
-				display7SEG(1, 1);
-				sub_status = 0;
-				break;
-			default:
-				break;
-		}
-
-	}
-}
-
 void blinking_mode_02()
 {
+	if(timer3_flag == 1)
+	{
+		setTimer3(500);
+		HAL_GPIO_TogglePin(GPIOA, LED_3_Pin | LED_4_Pin);
+	}
 	if (timer2_flag == 1)
 	{
 		setTimer2(250);
@@ -59,6 +40,11 @@ void blinking_mode_02()
 
 void blinking_mode_03()
 {
+	if(timer3_flag == 1)
+	{
+		setTimer3(500);
+		HAL_GPIO_TogglePin(GPIOA, LED_2_Pin | LED_5_Pin);
+	}
 	if (timer2_flag == 1)
 	{
 		setTimer2(250);
@@ -83,6 +69,11 @@ void blinking_mode_03()
 
 void blinking_mode_04()
 {
+	if(timer3_flag == 1)
+	{
+		setTimer3(500);
+		HAL_GPIO_TogglePin(GPIOA, LED_1_Pin | LED_6_Pin);
+	}
 	if (timer2_flag == 1)
 	{
 		setTimer2(250);
@@ -109,22 +100,6 @@ void fsm_manual_run()
 {
 	switch (status)
 	{
-	case MODE_1:
-		blinking_mode_01();
-		if (timer1_flag == 1)
-		{
-			status = INIT;
-		}
-		if (isButton1Pressed() == 1)
-		{
-			setTimer1(10000);
-			status = MODE_2;
-		}
-		if (isButton3Pressed() == 1)
-		{
-			status = INIT;
-		}
-		break;
 	case MODE_2:
 		blinking_mode_02();
 		if (timer1_flag == 1)
@@ -134,6 +109,7 @@ void fsm_manual_run()
 		if (isButton1Pressed() == 1)
 		{
 			setTimer1(10000);
+			OffLight();
 			status = MODE_3;
 		}
 		if (isButton2Pressed() == 1)
@@ -155,6 +131,7 @@ void fsm_manual_run()
 		if (isButton1Pressed() == 1)
 		{
 			setTimer1(10000);
+			OffLight();
 			status = MODE_4;
 		}
 		if (isButton2Pressed() == 1)
@@ -176,6 +153,7 @@ void fsm_manual_run()
 		if (isButton1Pressed() == 1)
 		{
 			setTimer1(10000);
+			OffLight();
 			status = MODE_1;
 		}
 		if (isButton2Pressed() == 1)

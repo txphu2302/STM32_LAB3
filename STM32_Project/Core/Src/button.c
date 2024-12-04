@@ -17,7 +17,6 @@ int KeyReg3[3]= {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
 
 int TimeOutForKeyPress = 200;
 int button_pressed[3];
-int button_long_pressed[3];
 int button_flag[3];
 
 int isButton1Pressed()
@@ -25,16 +24,6 @@ int isButton1Pressed()
 	if (button_flag[0] == 1)
 	{
 		button_flag[0] = 0;
-		return 1;
-	}
-	return 0;
-}
-
-int isButton1LongPressed()
-{
-	if (button_long_pressed[0] == 1)
-	{
-		button_long_pressed[0] = 0;
 		return 1;
 	}
 	return 0;
@@ -50,15 +39,6 @@ int isButton2Pressed()
 	return 0;
 }
 
-int isButton2LongPressed()
-{
-	if (button_long_pressed[1] == 1)
-	{
-		button_long_pressed[1] = 0;
-		return 1;
-	}
-	return 0;
-}
 
 int isButton3Pressed()
 {
@@ -70,15 +50,6 @@ int isButton3Pressed()
 	return 0;
 }
 
-int isButton3LongPressed()
-{
-	if (button_long_pressed[2] == 1)
-	{
-		button_long_pressed[2] = 0;
-		return 1;
-	}
-	return 0;
-}
 
 void subkeyProcess(int index)
 {
@@ -113,7 +84,11 @@ void getKeyInput()
 				TimeOutForKeyPress--;
 				if (TimeOutForKeyPress == 0)
 				{
-					KeyReg3[i] = NORMAL_STATE;
+					if (KeyReg3[i] == PRESSED_STATE)
+					{
+						subkeyProcess(i);
+					}
+					TimeOutForKeyPress = 50;
 				}
 			}
 		}

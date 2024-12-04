@@ -27,6 +27,7 @@
 #include "fsm_automatic.h"
 #include "fsm_manual.h"
 #include "fsm_setting.h"
+#include "scheduler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,11 +101,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   status = INIT;
   red = 5, green = 3, amber = 2;
+
+  SCH_init();
+  SCH_Add_Task(timerRun, 0, 10);
+  SCH_Add_Task(getKeyInput, 0, 10);
+  SCH_Add_Task(fsm_automatic_run, 0, 10);
+  SCH_Add_Task(fsm_manual_run, 0, 10);
+  SCH_Add_Task(fsm_setting_run, 0, 10);
+
   while (1)
   {
-	  fsm_automatic_run();
-	  fsm_manual_run();
-	  fsm_setting_run();
+	  SCH_Dispatch_Tasks();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -252,8 +259,7 @@ static void MX_GPIO_Init(void)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	timerRun();
-	getKeyInput();
+	SCH_Update();
 }
 
 /* USER CODE END 4 */

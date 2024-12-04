@@ -15,15 +15,9 @@
 
 int isButton1Pressed();
 
-int isButton1LongPressed();
-
 int isButton2Pressed();
 
-int isButton2LongPressed();
-
 int isButton3Pressed();
-
-int isButton3LongPressed();
 
 void getKeyInput();
 

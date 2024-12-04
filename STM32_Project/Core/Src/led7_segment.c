@@ -8,7 +8,6 @@
 #include "led7_segment.h"
 
 int red, green, amber;
-
 void display7SEG(int num, int substatus)
 {
 	if (substatus == 0)
